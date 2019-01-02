@@ -2,8 +2,8 @@
 #include "genlib.h"
 #include "simpio.h"
 //afairese = remove
-// red checks if universe is already in resault
-// yellow checks if universe is already traversed
+//red checks if universe is already in resault
+//yellow checks if universe is already traversed
 void afairesi(int a,int b,int pl,int number,int table[pl][number],int arxikoCount[pl],int uncoveredCount[pl],int metablitoCount[pl],int col_table[number],int keep);
 bool check(int pl,int uncoveredCount[pl]);
 bool red(int keep,int k,int pl,int number,int table[pl][number],int arxikoCount[pl],int uncoveredCount[pl],int metabalomenoCount[pl],int col_table[number]);
