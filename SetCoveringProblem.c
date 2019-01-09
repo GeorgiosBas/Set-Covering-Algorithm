@@ -1,7 +1,7 @@
+#include <stdbool.h>
 #include <stdio.h>
-#include "genlib.h"
-#include "simpio.h"
-//afairese = remove
+
+//afairesi = remove
 //red checks if universe is already in resault
 //yellow checks if universe is already traversed
 void afairesi(int a,int b,int pl,int number,int table[pl][number],int arxikoCount[pl],int uncoveredCount[pl],int metablitoCount[pl],int col_table[number],int keep);
@@ -84,10 +84,10 @@ int main(){
 bool check(int pl,int uncoveredCount[pl]){
     int i,count = 0;
     for(i=0; i<pl; i++){
-        if(uncoveredCount[i]>0)count++;
+        if(uncoveredCount[i]>0)
+            return true;
     }
-    if(count>0)return TRUE;
-    else return FALSE;
+    return false;
 }
 
 void afairesi(int a,int b,int pl,int number,int table[pl][number],int arxikoCount[pl],int uncoveredCount[pl],int metabalomenoCount[pl],int col_table[number],int keep){
@@ -104,21 +104,16 @@ void afairesi(int a,int b,int pl,int number,int table[pl][number],int arxikoCoun
 }
 
 bool red(int keep,int k,int pl,int number,int table[pl][number],int arxikoCount[pl],int uncoveredCount[pl],int metabalomenoCount[pl],int col_table[number]){
-    if(table[keep][k] == 1 && yellow(k,keep,pl,uncoveredCount,metabalomenoCount,number,col_table)){
-        return TRUE;
-    }
-    else return FALSE;
+    return table[keep][k] == 1 && yellow(k,keep,pl,uncoveredCount,metabalomenoCount,number,col_table);
 }
 
 bool yellow(int k,int keep,int pl,int uncoveredCount[pl],int metabalomenoCount[pl],int number,int col_table[number]){
     if(metabalomenoCount[keep] != uncoveredCount[keep]){
         metabalomenoCount[keep]--;
-        return TRUE;
+        return true;
     }
-    else{
-        if(col_table[k] == 1)return TRUE;
-        return FALSE;
-    }
+    else
+        return col_table[k] == 1;
 }
 
 
