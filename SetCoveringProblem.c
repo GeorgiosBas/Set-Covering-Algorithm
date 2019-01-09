@@ -1,13 +1,14 @@
+#include <stdbool.h>
 #include <stdio.h>
-#include "genlib.h"
-#include "simpio.h"
-//afairese = remove
+
+//afairesi = remove
 //red checks if universe is already in resault
 //yellow checks if universe is already traversed
 void afairesi(int a,int b,int pl,int number,int table[pl][number],int arxikoCount[pl],int uncoveredCount[pl],int metablitoCount[pl],int col_table[number],int keep);
 bool check(int pl,int uncoveredCount[pl]);
 bool red(int keep,int k,int pl,int number,int table[pl][number],int arxikoCount[pl],int uncoveredCount[pl],int metabalomenoCount[pl],int col_table[number]);
 bool yellow(int k,int keep,int pl,int uncoveredCount[pl],int metabalomenoCount[pl],int number,int col_table[number]);
+
 //import data
 int main(){
     int i,j,pl,number,ap;
@@ -34,11 +35,11 @@ int main(){
         uncoveredCount[i] = 0;
     }
     for(i=0; i<number; i++){
+        sum = 0;
         for(j=0; j<pl; j++){
-            if(table[j][i] == 1)sum = sum + 1;
+            if(table[j][i] == 1)sum++;
         }
         col_table[i] = sum;
-        sum = 0;
     }
     for(i=0; i<pl; i++){
         for(j=0; j<number; j++){
@@ -84,41 +85,36 @@ int main(){
 bool check(int pl,int uncoveredCount[pl]){
     int i,count = 0;
     for(i=0; i<pl; i++){
-        if(uncoveredCount[i]>0)count++;
+        if(uncoveredCount[i]>0)
+            return true;
     }
-    if(count>0)return TRUE;
-    else return FALSE;
+    return false;
 }
 
 void afairesi(int a,int b,int pl,int number,int table[pl][number],int arxikoCount[pl],int uncoveredCount[pl],int metabalomenoCount[pl],int col_table[number],int keep){
     int k,l;
     for(k=0; k<number; k++){
-            if(table[keep][k] == 1 && !(red(keep,k,pl,number,table,arxikoCount,uncoveredCount,metabalomenoCount,col_table))){
-                for(l=a; l<b; l++){
-                    if(table[l][k] == 1){
-                        uncoveredCount[l]--;
-                    }
+        if(table[keep][k] == 1 && !(red(keep,k,pl,number,table,arxikoCount,uncoveredCount,metabalomenoCount,col_table))){
+            for(l=a; l<b; l++){
+                if(table[l][k] == 1){
+                    uncoveredCount[l]--;
                 }
             }
+        }
     }
 }
 
 bool red(int keep,int k,int pl,int number,int table[pl][number],int arxikoCount[pl],int uncoveredCount[pl],int metabalomenoCount[pl],int col_table[number]){
-    if(table[keep][k] == 1 && yellow(k,keep,pl,uncoveredCount,metabalomenoCount,number,col_table)){
-        return TRUE;
-    }
-    else return FALSE;
+    return table[keep][k] == 1 && yellow(k,keep,pl,uncoveredCount,metabalomenoCount,number,col_table);
 }
 
 bool yellow(int k,int keep,int pl,int uncoveredCount[pl],int metabalomenoCount[pl],int number,int col_table[number]){
     if(metabalomenoCount[keep] != uncoveredCount[keep]){
         metabalomenoCount[keep]--;
-        return TRUE;
+        return true;
     }
-    else{
-        if(col_table[k] == 1)return TRUE;
-        return FALSE;
-    }
+    else
+        return col_table[k] == 1;
 }
 
 
